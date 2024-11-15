@@ -42,10 +42,10 @@ PokePokeのカードサジェスト
 
 ワークスペース→/Users/yoshidatomoya/railss/pokepoke_app
 
-コントローラの編集→app/controllers/main_controller.rb
-検索ページの編集→app/views/main/search.html.erb
-結果ページの編集→app/views/main/results.html.erb
-データベースの編集→db/seeds.rb(rails db:resetを実行)
+コントローラの編集→app/controllers/main_controller.rb  
+検索ページの編集→app/views/main/search.html.erb  
+結果ページの編集→app/views/main/results.html.erb  
+データベースの編集→db/seeds.rb(rails db:resetを実行)  
 
 ## データベース(DB)について
 
