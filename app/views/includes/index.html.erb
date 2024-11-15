@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Includes" %>
+
+<h1>Includes</h1>
+
+<div id="includes">
+  <% @includes.each do |include| %>
+    <%= render include %>
+    <p>
+      <%= link_to "Show this include", include %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New include", new_include_path %>

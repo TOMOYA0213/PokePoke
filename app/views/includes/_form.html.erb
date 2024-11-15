@@ -1,0 +1,27 @@
+<%= form_with(model: include) do |form| %>
+  <% if include.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(include.errors.count, "error") %> prohibited this include from being saved:</h2>
+
+      <ul>
+        <% include.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :card_id, style: "display: block" %>
+    <%= form.number_field :card_id %>
+  </div>
+
+  <div>
+    <%= form.label :pack_id, style: "display: block" %>
+    <%= form.number_field :pack_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

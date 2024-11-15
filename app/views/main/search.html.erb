@@ -1,0 +1,6 @@
+<h1>ポケモン検索</h1>
+<%= form_with url: search_path, method: :post do |form| %>
+  <%= form.label :pokemon_name, 'ポケモンの名前を入力してください' %>
+  <%= form.text_field :pokemon_name %>
+  <%= form.submit '検索' %>
+<% end %>

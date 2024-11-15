@@ -1,0 +1,52 @@
+<h1 style="text-align: center; font-size: 32px; font-weight: bold; color: black;">検索結果</h1>
+
+<% if @cards.any? %>
+  <div style="padding: 20px; margin: 0 auto; width: 80%; max-width: 1000px;">
+    <h2 style="font-size: 28px; font-weight: bold; color: black; text-align: center;">ポケモンカード</h2>
+    <div style="display: flex; flex-direction: column;">
+      <% @cards.each do |card| %>
+        <div style="margin-bottom: 30px; padding: 15px; border: 1px solid #ddd; border-radius: 10px;">
+          <!-- ポケモンカード情報 -->
+          <div style="margin-bottom: 10px;">
+            <h3 style="font-size: 26px; font-weight: bold; color: red; text-align: center;">
+              <%= card.name %> (<%= card.card_type %>)
+            </h3>
+          
+            <p style="font-weight: bold;">入手可能なパック:</p>
+            <ul style="list-style-type: none; padding-left: 0;">
+              <% @packs[card].each do |pack| %>
+                <li><%= pack.name %></li>
+              <% end %>
+            </ul>
+          </div>
+
+          <!-- 関連ポケモン情報 -->
+          <div>
+            <p style="font-size: 22px; font-weight: bold; color: black;">関連ポケモン（ポイント順）:</p>
+            <ul style="list-style-type: none; padding-left: 0;">
+              <% @top_related_cards[card].each_with_index do |relation, index| %>
+                <li style="margin-bottom: 10px;">
+                  <strong style="font-size: 22px; font-weight: bold; color: red;">
+                    <%= index + 1 %>位: <%= relation.sub_card.name %> (<%= relation.sub_card.card_type %>)
+                  </strong>
+                  (ポイント: <%= relation.point %>)
+
+                  <p style="font-weight: bold;">関連ポケモンの入手可能なパック:</p>
+                  <ul style="list-style-type: none; padding-left: 0;">
+                    <% @related_packs[card][index].each do |pack| %>
+                      <li><%= pack.name %></li>
+                    <% end %>
+                  </ul>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% else %>
+  <p>該当するポケモンは見つかりませんでした。</p>
+<% end %>
+
+<%= link_to '戻る', root_path, style: 'text-align: center; display: block; margin-top: 20px;' %>

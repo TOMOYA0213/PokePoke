@@ -1,0 +1,12 @@
+<% content_for :title, "Editing include" %>
+
+<h1>Editing include</h1>
+
+<%= render "form", include: @include %>
+
+<br>
+
+<div>
+  <%= link_to "Show this include", @include %> |
+  <%= link_to "Back to includes", includes_path %>
+</div>

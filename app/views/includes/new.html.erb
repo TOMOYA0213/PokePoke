@@ -1,0 +1,11 @@
+<% content_for :title, "New include" %>
+
+<h1>New include</h1>
+
+<%= render "form", include: @include %>
+
+<br>
+
+<div>
+  <%= link_to "Back to includes", includes_path %>
+</div>

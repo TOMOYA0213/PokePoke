@@ -1,0 +1,12 @@
+<% content_for :title, "Editing pack" %>
+
+<h1>Editing pack</h1>
+
+<%= render "form", pack: @pack %>
+
+<br>
+
+<div>
+  <%= link_to "Show this pack", @pack %> |
+  <%= link_to "Back to packs", packs_path %>
+</div>

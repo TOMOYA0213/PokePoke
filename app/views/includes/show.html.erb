@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @include %>
+
+<div>
+  <%= link_to "Edit this include", edit_include_path(@include) %> |
+  <%= link_to "Back to includes", includes_path %>
+
+  <%= button_to "Destroy this include", @include, method: :delete %>
+</div>
