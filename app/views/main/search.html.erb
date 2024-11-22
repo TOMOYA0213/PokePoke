@@ -1,6 +1,15 @@
-<h1>ポケモン検索</h1>
-<%= form_with url: search_path, method: :post do |form| %>
-  <%= form.label :pokemon_name, 'ポケモンの名前を入力してください' %>
-  <%= form.text_field :pokemon_name %>
-  <%= form.submit '検索' %>
-<% end %>
+<h1 style="text-align: center; font-size: 32px; font-weight: bold; color: black; margin-top: 40px;">ポケモン検索</h1>
+
+<div style="display: flex; justify-content: center; align-items: center; height: 50vh;">
+  <%= form_with url: search_path, method: :post, style: 'width: 100%; max-width: 500px;' do |form| %>
+    <div style="margin-bottom: 20px;">
+      <%= form.label :pokemon_name, 'ポケモンの名前を入力してください', style: 'font-size: 20px; font-weight: bold; color: black;' %>
+    </div>
+    <div style="margin-bottom: 20px;">
+      <%= form.text_field :pokemon_name, style: 'font-size: 18px; padding: 10px; width: 100%; border: 1px solid #ccc; border-radius: 5px;' %>
+    </div>
+    <div>
+      <%= form.submit '検索', style: 'font-size: 18px; padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; width: 100%;' %>
+    </div>
+  <% end %>
+</div>

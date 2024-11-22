@@ -11,8 +11,12 @@
         </h3>
         <p style="font-weight: bold;">入手可能なパック:</p>
         <ul style="list-style-type: none; padding-left: 0;">
-          <% @packs[card].each do |pack| %>
-            <li><%= pack.name %></li>
+          <% if @packs[card].present? %>
+            <% @packs[card].each do |pack| %>
+              <li><%= pack.name %></li>
+            <% end %>
+          <% else %>
+            <li>入手可能なパックはありません。</li>
           <% end %>
         </ul>
 
@@ -23,14 +27,19 @@
             <p style="font-size: 22px; font-weight: bold; color: black;">関連ポケモン（ポイント順）:</p>
             <% @top_related_cards[card].each_with_index do |relation, index| %>
               <div style="margin-bottom: 20px; padding: 10px; border: 1px solid #ddd; border-radius: 10px;">
+                <% related_card = relation.main_card_id == card.id ? relation.sub_card : relation.main_card %>
                 <p style="font-size: 22px; font-weight: bold; color: red;">
-                  <%= index + 1 %>位: <%= relation.sub_card.name %> (<%= relation.sub_card.card_type %>)
+                  <%= index + 1 %>位: <%= related_card.name %> (<%= related_card.card_type %>)
                 </p>
                 <p>ポイント: <%= relation.point %></p>
-                <p>入手可能なパック:</p>
+                <p style="font-weight: bold;">入手可能なパック:</p>
                 <ul style="list-style-type: none; padding-left: 0;">
-                  <% @related_packs[card][relation.sub_card].each do |pack| %>
-                    <li><%= pack.name %></li>
+                  <% if @related_packs[related_card].present? %>
+                    <% @related_packs[related_card].each do |pack| %>
+                      <li><%= pack.name %></li>
+                    <% end %>
+                  <% else %>
+                    <li>関連パックはありません。</li>
                   <% end %>
                 </ul>
               </div>
