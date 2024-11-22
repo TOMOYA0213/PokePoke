@@ -17,7 +17,7 @@ class MainController < ApplicationController
     prepare_data_for_cards(@cards)
   end
 
-  private
+  private #77
 
   # 指定したカード群の関連データを準備する共通メソッド
   def prepare_data_for_cards(cards)
