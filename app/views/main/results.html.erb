@@ -1,4 +1,4 @@
-<h1 style="text-align: center; font-size: 32px; font-weight: bold; color: black;">検索結果</h1>
+<h1 style="text-align: center; font-size: 32px; font-weight: bold; color: black; margin-top: 40px;">検索結果</h1>
 
 <% if @cards.any? %>
   <div style="padding: 20px; margin: 0 auto; width: 80%; max-width: 1000px;">
@@ -9,8 +9,8 @@
         <h3 style="font-size: 26px; font-weight: bold; color: red; text-align: center;">
           <%= card.name %> (<%= card.card_type %>)
         </h3>
-        <p style="font-weight: bold;">入手可能なパック:</p>
-        <ul style="list-style-type: none; padding-left: 0;">
+        <p style="font-weight: bold; text-align: center;">入手可能なパック:</p>
+        <ul style="list-style-type: none; padding-left: 0; text-align: center;">
           <% if @packs[card].present? %>
             <% @packs[card].each do |pack| %>
               <li><%= pack.name %></li>
@@ -23,31 +23,35 @@
         <!-- 関連ポケモンとおすすめパック -->
         <div style="display: flex; justify-content: space-between; align-items: flex-start;">
           <!-- 関連ポケモン -->
-          <div style="width: 60%;">
+          <div style="width: 50%; padding-right: 10px;text-align: center;">
             <p style="font-size: 22px; font-weight: bold; color: black;">関連ポケモン（ポイント順）:</p>
             <% @top_related_cards[card].each_with_index do |relation, index| %>
-              <div style="margin-bottom: 20px; padding: 10px; border: 1px solid #ddd; border-radius: 10px;">
+              <div style="margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 10px; background-color: #f9f9f9; margin-left: 20px;">
                 <% related_card = relation.main_card_id == card.id ? relation.sub_card : relation.main_card %>
                 <p style="font-size: 22px; font-weight: bold; color: red;">
                   <%= index + 1 %>位: <%= related_card.name %> (<%= related_card.card_type %>)
                 </p>
-                <p>ポイント: <%= relation.point %></p>
-                <p style="font-weight: bold;">入手可能なパック:</p>
-                <ul style="list-style-type: none; padding-left: 0;">
-                  <% if @related_packs[related_card].present? %>
-                    <% @related_packs[related_card].each do |pack| %>
-                      <li><%= pack.name %></li>
+                
+                <!-- ポイントとパックのインデントを調整 -->
+                <div style="margin-left: 20px;">
+                  <p>ポイント: <%= relation.point %></p>
+                  <p style="font-weight: bold;">入手可能なパック:</p>
+                  <ul style="list-style-type: none; padding-left: 0;">
+                    <% if @related_packs[related_card].present? %>
+                      <% @related_packs[related_card].each do |pack| %>
+                        <li><%= pack.name %></li>
+                      <% end %>
+                    <% else %>
+                      <li>入手可能なパックはありません。</li>
                     <% end %>
-                  <% else %>
-                    <li>関連パックはありません。</li>
-                  <% end %>
-                </ul>
+                  </ul>
+                </div>
               </div>
             <% end %>
           </div>
 
           <!-- おすすめのパック -->
-          <div style="width: 35%; text-align: center;">
+          <div style="width: 50%; padding-left: 10px;text-align: center; ">
             <p style="font-size: 22px; font-weight: bold; color: black;">おすすめのパック:</p>
             <% if @recommended_packs[card] %>
               <p style="font-size: 20px; font-weight: bold; color: green;">
@@ -66,4 +70,4 @@
   <p style="text-align: center; font-size: 18px; font-weight: bold; color: red;">該当するポケモンは見つかりませんでした。</p>
 <% end %>
 
-<%= link_to '戻る', root_path, style: 'text-align: center; display: block; margin-top: 20px; font-size: 18px; font-weight: bold;' %>
+<%= link_to '戻る', root_path, style: 'text-align: center; display: block; margin-top: 20px; margin-bottom: 50px; font-size: 18px; font-weight: bold;' %>
