@@ -17,6 +17,7 @@
 2. [環境](#環境)
 3. [コードについて](#コードについて)
 4. [データベース(DB)について](#データベースdbについて)
+5. [使い方](#使い方)
 
 <!-- プロジェクト名を記載 -->
 
@@ -42,12 +43,19 @@ PokePokeのカードサジェスト
 
 ワークスペース→/Users/yoshidatomoya/railss/pokepoke_app
 
-コントローラの編集→app/controllers/main_controller.rb  
-検索ページの編集→app/views/main/search.html.erb  
-結果ページの編集→app/views/main/results.html.erb  
-データベースの編集→db/seeds.rb(rails db:resetを実行)  
-モデル→各モデルにそれぞれhas_many/belongs_toを定義
+コントローラ(C)の編集→app/controllers/main_controller.rb  
+検索ページ(V)の編集→app/views/main/search.html.erb  
+結果ページ(V)の編集→app/views/main/results.html.erb  
+データベース(DB)の編集→db/seeds.rb(rails db:resetを実行)  
+モデル→各モデル(M)にそれぞれhas_many/belongs_toを定義
 
 ## データベース(DB)について
 
 「DB Browser for SQLite」でstorage/development.sqlite3を開くと可視化
+
+## 使い方
+
+1. git clone する
+2. /Users/yoshidatomoya/railss/pokepoke_app に移動する
+3. ターミナルで $ rails server
+4. localhost:3000 で検索
