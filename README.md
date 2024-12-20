@@ -30,6 +30,7 @@ PokePokeのカードサジェスト
 ## プロジェクトについて
 
 主軸となるカードをもとに、相性の良いカードやおすすめのパックを表示
+ログイン機構・お気に入り登録も有り
 
 ## 環境
 
@@ -46,6 +47,8 @@ PokePokeのカードサジェスト
 コントローラ(C)の編集→app/controllers/main_controller.rb  
 検索ページ(V)の編集→app/views/main/search.html.erb  
 結果ページ(V)の編集→app/views/main/results.html.erb  
+お気に入りページ(V)の編集→app/views/main/favorite.html.erb  
+ログインページ(V)の編集→app/views/devise/sessions/new.html.erb
 データベース(DB)の編集→db/seeds.rb(rails db:resetを実行)  
 モデル→各モデル(M)にそれぞれhas_many/belongs_toを定義
 
