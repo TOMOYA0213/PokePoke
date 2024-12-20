@@ -1,4 +1,8 @@
 class MainController < ApplicationController
+
+  before_action :authenticate_user!
+
+
   # 検索フォームを表示
   def search
     @query = params[:query]
@@ -8,6 +12,8 @@ class MainController < ApplicationController
     prepare_data_for_cards(@cards)
   end
 
+
+
   # 検索結果を表示
   def results
     @pokemon_name = params[:pokemon_name]
@@ -15,6 +21,13 @@ class MainController < ApplicationController
 
     # 検索結果ごとのデータ準備
     prepare_data_for_cards(@cards)
+    
+  end
+  
+
+  #お気に入り
+  def favorites
+    @favorite_cards = current_user.favorite_cards
   end
 
   private

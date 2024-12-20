@@ -20,10 +20,20 @@
           <% end %>
         </ul>
 
+        <!-- お気に入りボタン -->
+        <div style="text-align: center; margin-top: 10px;">
+          <% if current_user.favorites.exists?(card_id: card.id) %>
+            <% favorite = current_user.favorites.find_by(card_id: card.id) %>
+            <%= button_to 'お気に入り解除', favorite_path(favorite), method: :delete, class: 'btn btn-danger', style: 'font-size: 16px; padding: 8px 16px;' %>
+          <% else %>
+            <%= button_to 'お気に入り追加', favorites_path(card_id: card.id), method: :post, class: 'btn btn-primary', style: 'font-size: 16px; padding: 8px 16px;' %>
+          <% end %>
+        </div>
+
         <!-- 関連ポケモンとおすすめパック -->
-        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-top: 20px;">
           <!-- 関連ポケモン -->
-          <div style="width: 50%; padding-right: 10px;text-align: center;">
+          <div style="width: 50%; padding-right: 10px; text-align: center;">
             <p style="font-size: 22px; font-weight: bold; color: black;">関連ポケモン（ポイント順）:</p>
             <% @top_related_cards[card].each_with_index do |relation, index| %>
               <div style="margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 10px; background-color: #f9f9f9; margin-left: 20px;">
@@ -51,7 +61,7 @@
           </div>
 
           <!-- おすすめのパック -->
-          <div style="width: 50%; padding-left: 10px;text-align: center; ">
+          <div style="width: 50%; padding-left: 10px; text-align: center;">
             <p style="font-size: 22px; font-weight: bold; color: black;">おすすめのパック:</p>
             <% if @recommended_packs[card] %>
               <p style="font-size: 20px; font-weight: bold; color: green;">

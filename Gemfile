@@ -9,6 +9,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder'
 gem 'bootsnap'
+gem 'devise'
 
 group :development, :test do
   gem 'sqlite3'

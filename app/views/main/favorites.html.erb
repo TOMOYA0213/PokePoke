@@ -1,0 +1,41 @@
+<h1 style="text-align: center; font-size: 32px; font-weight: bold; color: black; margin-top: 40px;">お気に入りのポケモンカード</h1>
+
+<% if @favorite_cards.any? %>
+  <div style="padding: 20px; margin: 0 auto; width: 80%; max-width: 1000px; background-color: #f9f9f9; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+    <% @favorite_cards.each do |card| %>
+      <div style="margin-bottom: 30px; padding: 15px; border: 1px solid #ddd; border-radius: 10px;">
+        <!-- ポケモンカード情報 -->
+        <h2 style="font-size: 26px; font-weight: bold; color: red; text-align: center;">
+          <%= card.name %> (<%= card.card_type %>)
+        </h2>
+        <p style="font-weight: bold; text-align: center;">入手可能なパック:</p>
+        <ul style="list-style-type: none; padding-left: 0; text-align: center;">
+          <% if card.packs.any? %>
+            <% card.packs.each do |pack| %>
+              <li style="font-size: 16px; color: #444; padding: 5px 0;"><%= pack.name %></li>
+            <% end %>
+          <% else %>
+            <li style="font-size: 16px; color: #777;">入手可能なパックはありません。</li>
+          <% end %>
+        </ul>
+        
+        <!-- 結果ページへのリンク -->
+        <div style="text-align: center; margin-top: 10px;">
+          <%= link_to 'このポケモンの詳細を見る', results_path(pokemon_name: card.name), 
+            style: 'font-size: 16px; font-weight: bold; color: #007BFF; text-decoration: none; padding: 10px; display: inline-block; border: 1px solid #007BFF; border-radius: 5px;' %>
+        </div>
+
+
+        <!-- お気に入り解除ボタン -->
+        <div style="text-align: center; margin-top: 10px;">
+          <% favorite = current_user.favorites.find_by(card_id: card.id) %>
+          <%= button_to 'お気に入り解除', favorite_path(favorite), method: :delete, class: 'btn btn-danger', style: 'font-size: 16px; padding: 8px 16px;' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p style="text-align: center; font-size: 18px; font-weight: bold; color: red; margin-top: 40px;">お気に入りのポケモンカードはありません。</p>
+<% end %>
+
+<%= link_to '戻る', root_path, style: 'text-align: center; display: block; margin-top: 20px; margin-bottom: 50px; font-size: 18px; font-weight: bold; color: #007BFF; text-decoration: none;' %>
