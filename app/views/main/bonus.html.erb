@@ -1,0 +1,61 @@
+<h1 style="text-align: center; font-size: 32px; font-weight: bold; color: black; margin-top: 40px;">ポケモンシルエットクイズ</h1>
+
+<!-- 現在の出題範囲を表示 -->
+<% ranges = {
+  "kanto" => "カントー地方 (No.1〜151)",
+  "johto" => "ジョウト地方 (No.152〜251)",
+  "hoenn" => "ホウエン地方 (No.252〜386)",
+  "sinnoh" => "シンオウ地方 (No.387〜493)",
+  "unova" => "イッシュ地方 (No.494〜649)",
+  "kalos" => "カロス地方 (No.650〜721)",
+  "alola" => "アローラ地方 (No.722〜809)",
+  "galar" => "ガラル地方 (No.810〜905)",
+  "paldea" => "パルデア地方 (No.906〜1025)"
+} %>
+
+<p style="text-align: center; font-size: 18px; font-weight: bold; color: #555; margin-top: 10px;">
+  出題範囲: <%= ranges[params[:range]] || "未設定" %>
+</p>
+
+<div style="text-align: center; margin-top: 40px;">
+  <h2 style="font-size: 24px; font-weight: bold; color: #555;">このポケモンは誰だ？</h2>
+  
+  <% if @pokemon %>
+    <!-- ポケモンのシルエット画像を表示 -->
+    <div id="pokemon-image-container" style="margin: 20px auto; width: 300px; height: 300px; background-color: #ddd; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);">
+      <%= image_tag @pokemon['sprite'], alt: "ポケモンシルエット", id: "pokemon-image", style: "filter: brightness(0); width: 80%; height: auto;" %>
+    </div>
+
+    <!-- 答えボタン -->
+    <%= button_to '答えを見る', '#', id: 'show-answer', style: 'font-size: 18px; padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;' %>
+    
+    <!-- 答えの表示 -->
+    <p id="answer" style="font-size: 20px; font-weight: bold; color: red; display: none; margin-top: 20px;">
+      答え: <%= @pokemon['name'] %>
+    </p>
+
+    <!-- 次のクイズボタン -->
+    <div style="margin-top: 20px;">
+      <%= link_to '次のクイズ', quiz_path(params[:range]), style: 'font-size: 16px; font-weight: bold; color: #007BFF; text-decoration: none; padding: 10px; display: inline-block; border: 1px solid #007BFF; border-radius: 5px;' %>
+    </div>
+  <% else %>
+    <p style="font-size: 18px; font-weight: bold; color: red;">ポケモンデータを取得できませんでした。</p>
+  <% end %>
+
+  <%= link_to '戻る', select_quiz_range_path, style: 'font-size: 16px; font-weight: bold; color: #007BFF; text-decoration: none; margin-top: 30px; display: block;' %>
+</div>
+
+<script>
+  // 答えボタンを押したときに答えを表示し、画像を通常のものに変更
+  document.addEventListener('DOMContentLoaded', function() {
+    const showAnswerButton = document.getElementById('show-answer');
+    const answerText = document.getElementById('answer');
+    const pokemonImage = document.getElementById('pokemon-image');
+
+    showAnswerButton.addEventListener('click', function(event) {
+      event.preventDefault();
+      answerText.style.display = 'block';
+      pokemonImage.style.filter = 'none'; // シルエット解除
+    });
+  });
+</script>

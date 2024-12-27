@@ -30,6 +30,39 @@ class MainController < ApplicationController
     @favorite_cards = current_user.favorite_cards
   end
 
+
+
+  # def bonus
+  #   # ランダムにNo.1~No.151のポケモンを選ぶ
+  #   @pokemon_id = rand(1..151)
+  #   @pokemon = fetch_pokemon(@pokemon_id)
+  # end
+
+  def bonus
+    # 出題範囲に応じてポケモンをランダムに選ぶ
+    ranges = {
+      "kanto" => 1..151,
+      "johto" => 152..251,
+      "hoenn" => 252..386,
+      "sinnoh" => 387..493,
+      "unova" => 494..649,
+      "kalos" => 650..721,
+      "alola" => 722..809,
+      "galar" => 810..905,
+      "paldea" => 906..1025
+    }
+
+    selected_range = ranges[params[:range]]
+    if selected_range
+      @pokemon_id = rand(selected_range)
+      @pokemon = fetch_pokemon(@pokemon_id)
+    else
+      redirect_to select_quiz_range_path, alert: "無効な範囲が選択されました。"
+    end
+  end
+
+
+
   private
 
   # 指定したカード群の関連データを準備する共通メソッド
@@ -85,4 +118,42 @@ class MainController < ApplicationController
 
     pack_scores.max_by { |_, score| score }&.first
   end
+
+
+
+  # # PokeAPIからポケモンのデータを取得
+  # def fetch_pokemon(pokemon_id)
+  #   response = HTTP.get("https://pokeapi.co/api/v2/pokemon-species/#{pokemon_id}")
+  #   if response.status.success?
+  #     json = JSON.parse(response.body.to_s)
+      
+  #     # 日本語名を取得
+  #     name_entry = json['names'].find { |entry| entry['language']['name'] == 'ja' }
+  #     {
+  #       'id' => pokemon_id,
+  #       'name' => name_entry ? name_entry['name'] : '不明',
+  #       'sprite' => "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/#{pokemon_id}.png"
+  #     }
+  #   else
+  #     nil
+  #   end
+  # end
+  def fetch_pokemon(pokemon_id)
+    response = HTTP.get("https://pokeapi.co/api/v2/pokemon-species/#{pokemon_id}")
+    if response.status.success?
+      json = JSON.parse(response.body.to_s)
+      
+      # 日本語名を取得
+      name_entry = json['names'].find { |entry| entry['language']['name'] == 'ja' }
+      {
+        'id' => pokemon_id,
+        'name' => name_entry ? name_entry['name'] : '不明',
+        'sprite' => "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/#{pokemon_id}.png"
+      }
+    else
+      nil
+    end
+  end
+
+
 end

@@ -33,7 +33,7 @@ class Card < ApplicationRecord
 
   private
 
-  # 日本語名を英語名に変換する (例: カスミ -> Misty)
+  # 日本語名を英語名に変換する
   def translate_to_english(japanese_name)
     translations = {
       'ピカチュウ' => 'pikachu',
