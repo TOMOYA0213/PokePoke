@@ -42,9 +42,9 @@ Relation.create([{ main_card_id: 1, sub_card_id: 2, point: 95 },
 # Pack.create([{ name: '黄色パック' },
 #              { name: '赤色パック' },
 #              { name: '紫色パック' }])
-Pack.create([{ id: 1, name: '黄色パック' },
-             { id: 2, name: '赤色パック' },
-             { id: 3, name: '紫色パック' }])
+Pack.create([{ id: 1, name: 'yellow_pack' },
+             { id: 2, name: 'red_pack' },
+             { id: 3, name: 'purple_pack' }])
 
 # Includeデータ
 Include.create([{ card_id: 1, pack_id: 1 },
