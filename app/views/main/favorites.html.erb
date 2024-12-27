@@ -5,9 +5,14 @@
     <% @favorite_cards.each do |card| %>
       <div style="margin-bottom: 30px; padding: 15px; border: 1px solid #ddd; border-radius: 10px;">
         <!-- ポケモンカード情報 -->
-        <h2 style="font-size: 26px; font-weight: bold; color: red; text-align: center;">
-          <%= card.name %> (<%= card.card_type %>)
-        </h2>
+        <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
+          <% if card.front_default_image %>
+            <%= image_tag card.front_default_image, alt: "#{card.name}の画像", style: "width: 50px; height: 50px; margin-right: 10px; border-radius: 50%;" %>
+          <% end %>
+          <h2 style="font-size: 26px; font-weight: bold; color: red; margin: 0;">
+            <%= card.name %> (<%= card.card_type %>)
+          </h2>
+        </div>
         <p style="font-weight: bold; text-align: center;">入手可能なパック:</p>
         <ul style="list-style-type: none; padding-left: 0; text-align: center;">
           <% if card.packs.any? %>
@@ -25,7 +30,6 @@
             style: 'font-size: 16px; font-weight: bold; color: #007BFF; text-decoration: none; padding: 10px; display: inline-block; border: 1px solid #007BFF; border-radius: 5px;' %>
         </div>
 
-
         <!-- お気に入り解除ボタン -->
         <div style="text-align: center; margin-top: 10px;">
           <% favorite = current_user.favorites.find_by(card_id: card.id) %>
@@ -38,4 +42,4 @@
   <p style="text-align: center; font-size: 18px; font-weight: bold; color: red; margin-top: 40px;">お気に入りのポケモンカードはありません。</p>
 <% end %>
 
-<%= link_to '戻る', root_path, style: 'text-align: center; display: block; margin-top: 20px; margin-bottom: 50px; font-size: 18px; font-weight: bold; color: #007BFF; text-decoration: none;' %>
+<%= link_to '戻る', root_path, style: 'text-align: center; display: block; margin-top: 20px; margin-bottom: 50px; font-size: 18px; font-weight: bold;' %>

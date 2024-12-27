@@ -51,6 +51,7 @@ PokePokeのカードサジェスト
 ログインページ(V)の編集→app/views/devise/sessions/new.html.erb
 データベース(DB)の編集→db/seeds.rb(rails db:resetを実行)  
 モデル→各モデル(M)にそれぞれhas_many/belongs_toを定義
+API→app/models/card.rbで翻訳が必要
 
 ## データベース(DB)について
 

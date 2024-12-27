@@ -6,7 +6,11 @@
     <% @cards.each do |card| %>
       <div style="margin-bottom: 30px; padding: 15px; border: 1px solid #ddd; border-radius: 10px;">
         <!-- ポケモンカード情報 -->
-        <h3 style="font-size: 26px; font-weight: bold; color: red; text-align: center;">
+        <h3 style="font-size: 26px; font-weight: bold; color: red; text-align: center; display: flex; align-items: center; justify-content: center;">
+          <!-- ポケモン画像 -->
+          <% if card.front_default_image %>
+            <%= image_tag card.front_default_image, alt: "#{card.name}の画像", style: "width: 50px; height: 50px; margin-right: 10px; border-radius: 50%;" %>
+          <% end %>
           <%= card.name %> (<%= card.card_type %>)
         </h3>
         <p style="font-weight: bold; text-align: center;">入手可能なパック:</p>
@@ -24,11 +28,11 @@
         <div style="text-align: center; margin-top: 10px;">
           <% if current_user.favorites.exists?(card_id: card.id) %>
             <% favorite = current_user.favorites.find_by(card_id: card.id) %>
-            <%= button_to 'お気に入り解除', favorite_path(favorite, pokemon_name: @pokemon_name),method: :delete, class: 'btn btn-danger',
+            <%= button_to 'お気に入り解除', favorite_path(favorite, pokemon_name: @pokemon_name), method: :delete, class: 'btn btn-danger',
              style: 'font-size: 16px; padding: 8px 16px;' %>
           <% else %>
-          <%= button_to 'お気に入り追加', favorites_path(card_id: card.id, pokemon_name: @pokemon_name),method: :post,class: 'btn btn-primary',
-           style: 'font-size: 16px; padding: 8px 16px; background-color: #1e90ff; color: white; border: none; border-radius: 5px; cursor: pointer;' %>
+            <%= button_to 'お気に入り追加', favorites_path(card_id: card.id, pokemon_name: @pokemon_name), method: :post, class: 'btn btn-primary',
+             style: 'font-size: 16px; padding: 8px 16px; background-color: #1e90ff; color: white; border: none; border-radius: 5px; cursor: pointer;' %>
           <% end %>
         </div>
 
@@ -40,12 +44,18 @@
             <% @top_related_cards[card].each_with_index do |relation, index| %>
               <div style="margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 10px; background-color: #f9f9f9; margin-left: 20px;">
                 <% related_card = relation.main_card_id == card.id ? relation.sub_card : relation.main_card %>
-                <p style="font-size: 22px; font-weight: bold; color: red;">
-                  <%= index + 1 %>位: <%= related_card.name %> (<%= related_card.card_type %>)
-                </p>
-                
+                <div style="display: flex; align-items: center; justify-content: center;">
+                  <!-- 関連ポケモン画像 -->
+                  <% if related_card.front_default_image %>
+                    <%= image_tag related_card.front_default_image, alt: "#{related_card.name}の画像", style: "width: 40px; height: 40px; margin-right: 10px; border-radius: 50%;" %>
+                  <% end %>
+                  <p style="font-size: 22px; font-weight: bold; color: red; margin: 0;">
+                    <%= index + 1 %>位: <%= related_card.name %> (<%= related_card.card_type %>)
+                  </p>
+                </div>
+
                 <!-- ポイントとパックのインデントを調整 -->
-                <div style="margin-left: 20px;">
+                <div style="margin-left: 20px; margin-top: 10px;">
                   <p>ポイント: <%= relation.point %></p>
                   <p style="font-weight: bold;">入手可能なパック:</p>
                   <ul style="list-style-type: none; padding-left: 0;">

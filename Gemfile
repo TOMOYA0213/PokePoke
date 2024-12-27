@@ -10,6 +10,7 @@ gem 'turbolinks'
 gem 'jbuilder'
 gem 'bootsnap'
 gem 'devise'
+gem 'http'
 
 group :development, :test do
   gem 'sqlite3'
