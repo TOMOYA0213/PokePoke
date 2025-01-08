@@ -49,7 +49,8 @@ class MainController < ApplicationController
       "kalos" => 650..721,
       "alola" => 722..809,
       "galar" => 810..905,
-      "paldea" => 906..1025
+      "paldea" => 906..1025,
+      "all" => 1..1025
     }
 
     selected_range = ranges[params[:range]]
